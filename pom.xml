@@ -9,6 +9,7 @@
         <module>lx-xuecheng-base</module>
         <module>lx-xuecheng-content</module>
         <module>lx-xuecheng-generator</module>
+        <module>lx-xuecheng-system</module>
     </modules>
     <name>lx-xuecheng</name>
     <description>lx-xuecheng</description>

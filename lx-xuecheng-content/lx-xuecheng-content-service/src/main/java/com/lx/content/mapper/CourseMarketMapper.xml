@@ -5,14 +5,18 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lx.content.model.entity.CourseMarket">
         <id column="id" property="id" />
-        <result column="course_id" property="courseId" />
         <result column="charge" property="charge" />
         <result column="price" property="price" />
+        <result column="original_price" property="originalPrice" />
+        <result column="qq" property="qq" />
+        <result column="wechat" property="wechat" />
+        <result column="phone" property="phone" />
+        <result column="valid_days" property="validDays" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, course_id, charge, price
+        id, charge, price, original_price, qq, wechat, phone, valid_days
     </sql>
 
 </mapper>

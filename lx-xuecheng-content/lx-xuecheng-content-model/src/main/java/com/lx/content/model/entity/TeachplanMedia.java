@@ -26,9 +26,9 @@ public class TeachplanMedia implements Serializable {
     private Long id;
 
     /**
-     * 媒资信息标识
+     * 媒资文件id
      */
-    private Long mediaId;
+    private String mediaId;
 
     /**
      * 课程计划标识
@@ -39,11 +39,6 @@ public class TeachplanMedia implements Serializable {
      * 课程标识
      */
     private Long courseId;
-
-    /**
-     * 课程发布标识
-     */
-    private Long coursePubId;
 
     /**
      * 媒资文件原始名称

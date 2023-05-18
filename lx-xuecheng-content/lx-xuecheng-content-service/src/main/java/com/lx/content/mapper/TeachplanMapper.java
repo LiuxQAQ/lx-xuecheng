@@ -1,6 +1,5 @@
 package com.lx.content.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lx.content.model.entity.Teachplan;
 

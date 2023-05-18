@@ -2,6 +2,7 @@ package com.lx.content.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lx.content.model.entity.CourseBase;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -10,6 +11,7 @@ import com.lx.content.model.entity.CourseBase;
  *
  * @author itcast
  */
+@Repository
 public interface CourseBaseMapper extends BaseMapper<CourseBase> {
 
 }

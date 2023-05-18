@@ -56,19 +56,9 @@ public class CourseBase implements Serializable {
     private String mt;
 
     /**
-     * 课程大类名称
-     */
-    private String mtName;
-
-    /**
      * 小分类
      */
     private String st;
-
-    /**
-     * 课程小类名称
-     */
-    private String stName;
 
     /**
      * 课程等级
@@ -118,39 +108,9 @@ public class CourseBase implements Serializable {
     private String auditStatus;
 
     /**
-     * 审核意见
+     * 课程发布状态 未发布  已发布 下线
      */
-    private String auditMind;
-
-    /**
-     * 审核次数
-     */
-    private Integer auditNums;
-
-    /**
-     * 审核时间
-     */
-    private LocalDateTime auditDate;
-
-    /**
-     * 审核人
-     */
-    private String auditPeople;
-
-    /**
-     * 1为未发布，0为删除 2已发布
-     */
-    private Integer status;
-
-    /**
-     * 课程发布标识
-     */
-    private Long coursePubId;
-
-    /**
-     * 课程发布时间
-     */
-    private LocalDateTime coursePubDate;
+    private String status;
 
 
 }
