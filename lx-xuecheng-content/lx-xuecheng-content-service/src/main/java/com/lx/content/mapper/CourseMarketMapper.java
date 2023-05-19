@@ -2,6 +2,8 @@ package com.lx.content.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lx.content.model.entity.CourseMarket;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * <p>
@@ -10,6 +12,7 @@ import com.lx.content.model.entity.CourseMarket;
  *
  * @author itcast
  */
+@Repository
 public interface CourseMarketMapper extends BaseMapper<CourseMarket> {
 
 }

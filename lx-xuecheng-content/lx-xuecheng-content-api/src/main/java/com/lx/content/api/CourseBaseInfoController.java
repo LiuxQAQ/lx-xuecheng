@@ -2,6 +2,8 @@ package com.lx.content.api;
 
 import com.lx.base.model.PageParams;
 import com.lx.base.model.PageResult;
+import com.lx.content.model.dto.AddCourseDto;
+import com.lx.content.model.dto.CourseBaseInfoDto;
 import com.lx.content.model.dto.QueryCourseParamsDto;
 import com.lx.content.model.entity.CourseBase;
 import com.lx.content.service.CourseBaseInfoService;
@@ -26,4 +28,13 @@ public class CourseBaseInfoController {
                                        @RequestBody(required = false) QueryCourseParamsDto queryCourseParams){
         return courseBaseInfoService.queryCourseBaseList(pageParams, queryCourseParams);
     }
+
+    @PostMapping("/course")
+    @ApiOperation("新增课程基础信息")
+    public CourseBaseInfoDto createCourseBase(@RequestBody AddCourseDto addCourseDto){
+        // 机构id，由于认证系统没有上线暂时硬编码
+        Long companyId = 1232141425L;
+        return courseBaseInfoService.createCourseBase(companyId,addCourseDto);
+    }
+
 }
