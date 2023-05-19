@@ -1,5 +1,6 @@
 package com.lx.content.api;
 
+import com.lx.base.execption.ValidationGroups;
 import com.lx.base.model.PageParams;
 import com.lx.base.model.PageResult;
 import com.lx.content.model.dto.AddCourseDto;
@@ -10,7 +11,7 @@ import com.lx.content.service.CourseBaseInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,10 @@ public class CourseBaseInfoController {
 
     @PostMapping("/course")
     @ApiOperation("新增课程基础信息")
-    public CourseBaseInfoDto createCourseBase(@RequestBody AddCourseDto addCourseDto){
+    // 添加@Validated注解 如果校验出错Spring会抛出MethodArgumentNotValidException异常，我们需要在统一异常处理器中捕获异常
+    // {ValidationGroups.Insert.class} 指定使用的分组名
+    // 如果包下的校验规则满足不了需求可以自定义规则注解  --查阅资料
+    public CourseBaseInfoDto createCourseBase(@RequestBody @Validated({ValidationGroups.Insert.class}) AddCourseDto addCourseDto){
         // 机构id，由于认证系统没有上线暂时硬编码
         Long companyId = 1232141425L;
         return courseBaseInfoService.createCourseBase(companyId,addCourseDto);
