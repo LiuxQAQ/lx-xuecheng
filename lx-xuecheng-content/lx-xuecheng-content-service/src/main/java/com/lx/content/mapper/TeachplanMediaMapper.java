@@ -2,6 +2,7 @@ package com.lx.content.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lx.content.model.entity.TeachplanMedia;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -10,6 +11,7 @@ import com.lx.content.model.entity.TeachplanMedia;
  *
  * @author itcast
  */
+@Repository
 public interface TeachplanMediaMapper extends BaseMapper<TeachplanMedia> {
 
 }
