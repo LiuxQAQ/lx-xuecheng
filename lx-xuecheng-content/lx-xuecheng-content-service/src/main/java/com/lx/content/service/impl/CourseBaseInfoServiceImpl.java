@@ -10,6 +10,7 @@ import com.lx.content.mapper.CourseCategoryMapper;
 import com.lx.content.mapper.CourseMarketMapper;
 import com.lx.content.model.dto.AddCourseDto;
 import com.lx.content.model.dto.CourseBaseInfoDto;
+import com.lx.content.model.dto.EditCourseDto;
 import com.lx.content.model.dto.QueryCourseParamsDto;
 import com.lx.content.model.entity.CourseBase;
 import com.lx.content.model.entity.CourseCategory;
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,7 +52,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         queryWrapper.eq(StringUtils.isNotEmpty(queryCourseParams.getAuditStatus()),
                 CourseBase::getAuditStatus,queryCourseParams.getAuditStatus());
 
-        // todo: 根据课程发布状态查询
+        // 根据课程发布状态查询
         queryWrapper.eq(StringUtils.isNotEmpty(queryCourseParams.getPublishStatus()),
                 CourseBase::getStatus,queryCourseParams.getPublishStatus());
 
@@ -126,7 +128,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     }
 
     // 保存课程营销信息
-    private int saveCourseMarket(CourseMarket courseMarketNew){
+    public int saveCourseMarket(CourseMarket courseMarketNew){
         // 收费规则
         String charge = courseMarketNew.getCharge();
         // 合法性校验
@@ -151,7 +153,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     }
 
     // 根据课程id查询课程基本信息，包括基本信息和营销信息
-    private CourseBaseInfoDto getCourseBaseInfo(long courseId){
+    public CourseBaseInfoDto getCourseBaseInfo(long courseId){
         CourseBase courseBase = courseBaseMapper.selectById(courseId);
         if (courseBase == null){
             return null;
@@ -171,4 +173,40 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         courseBaseInfoDto.setMtName(courseCategoryByMt.getName());
         return courseBaseInfoDto;
     }
+
+    @Transactional
+    @Override
+    public CourseBaseInfoDto updateCourseBase(Long companyId, EditCourseDto dto) {
+
+        // 课程id
+        Long courseId = dto.getId();
+        CourseBase courseBase = courseBaseMapper.selectById(courseId);
+
+        if (courseBase==null){
+            XueChengException.cast("课程不存在");
+        }
+
+        // 校验本机构只能修改本机构的课程
+        if (!courseBase.getCompanyId().equals(companyId)){
+            XueChengException.cast("本机构无权修改其他机构的课程");
+        }
+
+        // 封装基本信息的数据
+        BeanUtils.copyProperties(dto,courseBase);
+        courseBase.setChangeDate(LocalDateTime.now());
+
+        // 更新课程基本信息
+        int i = courseBaseMapper.updateById(courseBase);
+
+        // 封装营销信息数据
+        CourseMarket courseMarket = new CourseMarket();
+        BeanUtils.copyProperties(dto,courseMarket);
+        saveCourseMarket(courseMarket);
+        // 查询课程信息
+        CourseBaseInfoDto courseBaseInfo = this.getCourseBaseInfo(courseId);
+
+        return courseBaseInfo;
+    }
+
+
 }
