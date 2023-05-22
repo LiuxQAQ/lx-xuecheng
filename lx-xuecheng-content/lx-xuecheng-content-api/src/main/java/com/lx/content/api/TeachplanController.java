@@ -1,5 +1,6 @@
 package com.lx.content.api;
 
+import com.lx.content.model.dto.SaveTeachplanDto;
 import com.lx.content.model.dto.TeachplanDto;
 import com.lx.content.model.entity.Teachplan;
 import com.lx.content.service.TeachplanService;
@@ -8,9 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,6 +30,24 @@ public class TeachplanController {
     @GetMapping("/teachplan/{courseId}/tree-nodes")
     public List<TeachplanDto> getTreeNodes(@PathVariable Long courseId){
         return teachplanService.findTeachplanTree(courseId);
+    }
+
+    @ApiOperation("课程计划创建或修改")
+    @PostMapping("/teachplan")
+    public void saveTeachplan(@RequestBody SaveTeachplanDto teachplanDto){
+        teachplanService.saveTeachplan(teachplanDto);
+    }
+
+    @ApiOperation(value = "删除课程计划")
+    @DeleteMapping("/teachplan/{teachplanId}")
+    public void removeTeachPlan(@PathVariable("teachplanId") Long teachplanId){
+        teachplanService.removeTeachplan(teachplanId);
+    }
+
+    @ApiOperation(value = "移动课程计划")
+    @PostMapping("teachplan/{moveType}/{teachplanId}")
+    public void moveTeachPlan(@PathVariable("moveType") String moveType,@PathVariable("teachplanId") Long teachplanId){
+        teachplanService.moveTeachPlan(teachplanId,moveType);
     }
 
 }
