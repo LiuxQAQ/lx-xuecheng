@@ -11,6 +11,7 @@
         <module>lx-xuecheng-generator</module>
         <module>lx-xuecheng-system</module>
         <module>lx-xuecheng-gateway</module>
+        <module>lx-xuecheng-media</module>
     </modules>
     <name>lx-xuecheng</name>
     <description>lx-xuecheng</description>
