@@ -10,6 +10,7 @@
         <module>lx-xuecheng-content</module>
         <module>lx-xuecheng-generator</module>
         <module>lx-xuecheng-system</module>
+        <module>lx-xuecheng-gateway</module>
     </modules>
     <name>lx-xuecheng</name>
     <description>lx-xuecheng</description>
@@ -40,6 +41,9 @@
 
     <dependencyManagement>
         <dependencies>
+
+
+
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

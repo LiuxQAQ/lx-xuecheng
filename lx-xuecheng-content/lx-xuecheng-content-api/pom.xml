@@ -12,6 +12,7 @@
     <artifactId>lx-xuecheng-content-api</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>com.lx</groupId>
             <artifactId>lx-xuecheng-content-service</artifactId>

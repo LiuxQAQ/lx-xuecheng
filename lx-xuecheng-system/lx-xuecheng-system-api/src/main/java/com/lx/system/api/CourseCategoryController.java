@@ -3,6 +3,7 @@ package com.lx.system.api;
 
 import com.lx.system.model.dto.CourseCategoryTreeDto;
 import com.lx.system.service.CourseCategoryService;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
+@Api(value = "课程分类查询接口",tags = "课程分类查询接口")
 public class CourseCategoryController {
 
     @Autowired

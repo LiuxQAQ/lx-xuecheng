@@ -208,5 +208,18 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         return courseBaseInfo;
     }
 
+    @Override
+    public void removeCourseBaseInfo(Long companyId, Long courseId) {
+        CourseBase courseBase = courseBaseMapper.selectById(courseId);
+        if (courseBase == null){
+            XueChengException.cast("该课程不存在");
+        }
 
+        if (courseBase.getCompanyId().equals(companyId)){
+            XueChengException.cast("您无权删除其他机构的课程");
+        }
+
+        courseBaseMapper.deleteById(courseBase.getId());
+        courseMarketMapper.deleteById(courseBase.getId());
+    }
 }

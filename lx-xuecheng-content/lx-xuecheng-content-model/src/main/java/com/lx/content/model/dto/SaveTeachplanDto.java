@@ -11,7 +11,7 @@ import lombok.ToString;
  */
 @Data
 @ToString
-@ApiModel(value = "SaveTeachplanDto",description = "b保存课程计划DTO，包括新增，修改")
+@ApiModel(value = "SaveTeachplanDto",description = "保存课程计划DTO，包括新增，修改")
 public class SaveTeachplanDto {
 
  /***

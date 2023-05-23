@@ -12,6 +12,8 @@
     <artifactId>lx-xuecheng-system-api</artifactId>
 
     <dependencies>
+
+
         <dependency>
             <groupId>com.lx</groupId>
             <artifactId>lx-xuecheng-system-model</artifactId>
@@ -23,14 +25,7 @@
             <artifactId>lx-xuecheng-system-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
-<!--        </dependency>-->
+
         <!--cloud的基础环境包-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
