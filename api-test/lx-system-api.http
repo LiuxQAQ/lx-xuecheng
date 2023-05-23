@@ -1,7 +1,7 @@
-GET {{system_host}}/system/dictionary/all
+GET {{gateway_host}}/system/dictionary/all
 
 ###
-GET {{system_host}}/system/dictionary/code/202
+GET {{gateway_host}}/system/dictionary/code/202
 
 ###
-GET {{system_host}}/system/course-category/tree-nodes
+GET {{gateway_host}}/system/course-category/tree-nodes
