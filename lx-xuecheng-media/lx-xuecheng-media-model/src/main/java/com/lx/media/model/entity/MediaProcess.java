@@ -69,5 +69,9 @@ public class MediaProcess implements Serializable {
      */
     private String errormsg;
 
+    /**
+     * 失败次数
+     */
+    private int failCount;
 
 }
