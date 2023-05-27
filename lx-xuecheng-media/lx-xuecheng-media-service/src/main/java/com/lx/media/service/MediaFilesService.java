@@ -28,4 +28,7 @@ public interface MediaFilesService {
      * @description 将文件信息添加到文件表
      */
     public MediaFiles addMediaFilesToDb(Long companyId, String fileMd5, UploadFileParamsDto uploadFileParamsDto, String bucket, String objectName);
+
+    //根据媒资id查询文件信息
+    MediaFiles getFileById(String mediaId);
 }

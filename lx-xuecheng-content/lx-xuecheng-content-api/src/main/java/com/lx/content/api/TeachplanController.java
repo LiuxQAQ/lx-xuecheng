@@ -1,5 +1,6 @@
 package com.lx.content.api;
 
+import com.lx.content.model.dto.BindTeachplanMediaDto;
 import com.lx.content.model.dto.SaveTeachplanDto;
 import com.lx.content.model.dto.TeachplanDto;
 import com.lx.content.model.entity.Teachplan;
@@ -50,4 +51,14 @@ public class TeachplanController {
         teachplanService.moveTeachPlan(teachplanId,moveType);
     }
 
+    @ApiOperation(value = "课程计划和媒资信息绑定")
+    @PostMapping("/teachplan/association/media")
+    public void associationMedia(@RequestBody BindTeachplanMediaDto bindTeachplanMediaDto){
+        teachplanService.associationMedia(bindTeachplanMediaDto);
+    }
+
+    @DeleteMapping("/association/media/{teachplanId}/{mediaId}")
+    public void removeAssociationMedia(@PathVariable("teachplanId") Long teachplanId,@PathVariable("mediaId") String mediaId){
+
+    }
 }

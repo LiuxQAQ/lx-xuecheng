@@ -103,3 +103,17 @@ Content-Type: application/json
   "status" : null,
   "teachPlanId" : 240
 }
+
+### 课程计划绑定视频
+POST {{media_host}}/media/teachplan/association/media
+Content-Type: application/json
+
+{
+  "mediaId": "",
+  "fileName": "",
+  "teachplanId": ""
+}
+
+### 解除绑定
+DELETE {{media_host}}/media/teachplan/association/media/{teachPlanId}/{mediaId}
+

@@ -5,18 +5,21 @@ import com.lx.base.execption.XueChengException;
 import com.lx.content.mapper.CourseBaseMapper;
 import com.lx.content.mapper.TeachplanMapper;
 import com.lx.content.mapper.TeachplanMediaMapper;
+import com.lx.content.model.dto.BindTeachplanMediaDto;
 import com.lx.content.model.dto.SaveTeachplanDto;
 import com.lx.content.model.dto.TeachplanDto;
 import com.lx.content.model.entity.CourseBase;
 import com.lx.content.model.entity.Teachplan;
 import com.lx.content.model.entity.TeachplanMedia;
 import com.lx.content.service.TeachplanService;
+import com.sun.org.apache.xml.internal.security.encryption.AgreementMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -176,5 +179,51 @@ public class TeachplanServiceImpl implements TeachplanService {
         teachplanMapper.updateById(left);
         teachplanMapper.updateById(right);
         log.debug("课程计划交换位置,left:{},right:{}",left.getId(),right.getId());
+    }
+
+    @Override
+    @Transactional
+    public TeachplanMedia associationMedia(BindTeachplanMediaDto bindTeachplanMediaDto) {
+        // 教学计划id
+        Long teachplanId = bindTeachplanMediaDto.getTeachplanId();
+        Teachplan teachplan = teachplanMapper.selectById(teachplanId);
+        if (teachplan == null){
+            XueChengException.cast("教学计划不存在");
+        }
+        Integer grade = teachplan.getGrade();
+        if (grade != 2){
+            XueChengException.cast("只允许第二级计划绑定媒资文件");
+        }
+        // 课程id
+        Long courseId = teachplan.getCourseId();
+
+        // 先删除原来该教学计划绑定的媒资
+        teachplanMediaMapper.delete(new LambdaQueryWrapper<TeachplanMedia>().eq(TeachplanMedia::getTeachplanId,teachplanId));
+
+        // 再添加教学计划与媒资的绑定关系
+        TeachplanMedia teachplanMedia = new TeachplanMedia();
+        teachplanMedia.setCourseId(courseId);
+        teachplanMedia.setTeachplanId(teachplanId);
+        teachplanMedia.setMediaFileName(bindTeachplanMediaDto.getFileName());
+        teachplanMedia.setMediaId(bindTeachplanMediaDto.getMediaId());
+        teachplanMedia.setCreateDate(LocalDateTime.now());
+        teachplanMediaMapper.insert(teachplanMedia);
+        return teachplanMedia;
+    }
+
+    @Override
+    public void removeAssociationMedia(Long teachplanId, String mediaId) {
+        LambdaQueryWrapper<TeachplanMedia> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(TeachplanMedia::getTeachplanId,teachplanId)
+                .eq(TeachplanMedia::getMediaId,mediaId);
+        TeachplanMedia teachplanMedia = teachplanMediaMapper.selectOne(queryWrapper);
+        if (teachplanMedia==null){
+            XueChengException.cast("该课程没有绑定该媒资");
+        }
+
+        int i = teachplanMediaMapper.deleteById(teachplanMedia);
+        if (i<=0){
+            XueChengException.cast("解除绑定失败,请重试");
+        }
     }
 }

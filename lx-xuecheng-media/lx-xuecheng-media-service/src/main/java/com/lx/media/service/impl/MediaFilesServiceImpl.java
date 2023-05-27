@@ -54,6 +54,13 @@ public class MediaFilesServiceImpl implements MediaFilesService {
     @Value("${minio.bucket.files}")
     private String bucket_Files;
 
+
+    @Override
+    public MediaFiles getFileById(String mediaId) {
+        MediaFiles mediaFiles = mediaFilesMapper.selectById(mediaId);
+        return mediaFiles;
+    }
+
     /**
      * @author lx
      * @date 2023/5/23 21:57
