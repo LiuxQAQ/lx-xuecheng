@@ -3,11 +3,10 @@ package com.lx.content.api;
 import com.lx.content.model.dto.CoursePreviewDto;
 import com.lx.content.service.CoursePublishService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -19,10 +18,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller // 可以响应页面  RestController是响应json的
 public class CoursePublishController {
 
+    private static final Long COMPANY_ID = 1232141425L;
+
     @Autowired
     private CoursePublishService coursePublishService;
 
     @GetMapping("/coursepreview/{courseId}")
+    @ApiOperation("获取课程预览页面")
     public ModelAndView preview(@PathVariable("courseId") Long courseId){
 
         // 获取课程预览信息
@@ -33,4 +35,19 @@ public class CoursePublishController {
         modelAndView.setViewName("course_template");
         return modelAndView;
     }
+
+    @PostMapping("/courseaudit/commit/{courseId}")
+    @ResponseBody
+    @ApiOperation("提交审核接口")
+    public void commitAudit(@PathVariable("courseId") Long courseId){
+        coursePublishService.commitAudit(COMPANY_ID,courseId);
+    }
+
+    @ApiOperation("课程发布")
+    @ResponseBody
+    @PostMapping("/coursepublish/{courseId}")
+    public void coursePublish(@PathVariable("courseId") Long courseId){
+        coursePublishService.publish(COMPANY_ID,courseId);
+    }
+
 }

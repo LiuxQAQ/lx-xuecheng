@@ -15,7 +15,7 @@ public interface MediaFilesService {
      * @param localFilePath 本地文件地址
      * @description
      */
-    public UploadFileResultDto uploadFile(Long company, UploadFileParamsDto uploadFileParamsDto,String localFilePath);
+    public UploadFileResultDto uploadFile(Long company, UploadFileParamsDto uploadFileParamsDto,String localFilePath,String objectName);
 
     /**
      * @author lx

@@ -46,7 +46,7 @@ public class TeachplanController {
     }
 
     @ApiOperation(value = "移动课程计划")
-    @PostMapping("teachplan/{moveType}/{teachplanId}")
+    @PostMapping("/teachplan/{moveType}/{teachplanId}")
     public void moveTeachPlan(@PathVariable("moveType") String moveType,@PathVariable("teachplanId") Long teachplanId){
         teachplanService.moveTeachPlan(teachplanId,moveType);
     }

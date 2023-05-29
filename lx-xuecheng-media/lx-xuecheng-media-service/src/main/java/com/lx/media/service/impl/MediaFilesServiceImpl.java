@@ -15,6 +15,7 @@ import io.minio.UploadObjectArgs;
 import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -197,33 +198,38 @@ public class MediaFilesServiceImpl implements MediaFilesService {
     }
 
     @Override
-    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath) {
+    public UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto, String localFilePath,String objectName) {
 
-        File file = new File(localFilePath);
-        if (!file.exists()){
-            XueChengException.cast("文件不存在");
-        }
-        // 文件名
+        //文件名
         String filename = uploadFileParamsDto.getFilename();
-        // 文件扩展名
+        //先得到扩展名
         String extension = filename.substring(filename.lastIndexOf("."));
-        // 文件mimeType
+
+        //得到mimeType
         String mimeType = getMimeType(extension);
-        // 文件的md5值
-        String fileMd5 = getFileMd5(file);
-        // 文件默认目录
+
+        //子目录
         String defaultFolderPath = getDefaultFolderPath();
-        // 存储到minio中的对象名(带目录)
-        String objectName = defaultFolderPath+fileMd5+extension;
-        // 将文件上传到minio
-        boolean b = addMediaFilesToMinIO(localFilePath, mimeType, bucket_Files, objectName);
-        // 文件大小
-        uploadFileParamsDto.setFileSize(file.length());
-        // 将文件存储到数据库
+        //文件的md5值
+        String fileMd5 = getFileMd5(new File(localFilePath));
+        if(StringUtils.isEmpty(objectName)){
+            //使用默认年月日去存储
+            objectName = defaultFolderPath+fileMd5+extension;
+        }
+        //上传文件到minio
+        boolean result = addMediaFilesToMinIO(localFilePath, mimeType, bucket_Files, objectName);
+        if(!result){
+            XueChengException.cast("上传文件失败");
+        }
+        //入库文件信息
         MediaFiles mediaFiles = currentProxy.addMediaFilesToDb(companyId, fileMd5, uploadFileParamsDto, bucket_Files, objectName);
-        // 准备返回数据
+        if(mediaFiles==null){
+            XueChengException.cast("文件上传后保存信息失败");
+        }
+        //准备返回的对象
         UploadFileResultDto uploadFileResultDto = new UploadFileResultDto();
         BeanUtils.copyProperties(mediaFiles,uploadFileResultDto);
+
         return uploadFileResultDto;
     }
 }
