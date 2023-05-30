@@ -14,6 +14,7 @@
         <module>lx-xuecheng-media</module>
         <module>lx-xuecheng-message-sdk</module>
         <module>lx-xuecheng-search</module>
+        <module>lx-xuecheng-auth</module>
     </modules>
     <name>lx-xuecheng</name>
     <description>lx-xuecheng</description>

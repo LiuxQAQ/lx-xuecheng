@@ -14,7 +14,13 @@ import java.util.List;
  */
 public class SearchPageResultDto<T> extends PageResult {
 
-    public SearchPageResultDto(List items, long counts, long page, long pageSize) {
+    // 大分类列表
+    private List<String> mtList;
+    // 小分类列表
+    private List<String> stList;
+
+
+    public SearchPageResultDto(List<T> items, long counts, long page, long pageSize) {
         super(items, counts, page, pageSize);
     }
     
