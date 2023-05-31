@@ -40,7 +40,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     @Autowired
     private CourseCategoryMapper courseCategoryMapper;
     @Override
-    public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParams) {
+    public PageResult<CourseBase> queryCourseBaseList(Long companyId,PageParams pageParams, QueryCourseParamsDto queryCourseParams) {
         // 构建查询条件对象
         LambdaQueryWrapper<CourseBase> queryWrapper = new LambdaQueryWrapper<>();
 
@@ -56,6 +56,8 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         queryWrapper.eq(StringUtils.isNotEmpty(queryCourseParams.getPublishStatus()),
                 CourseBase::getStatus,queryCourseParams.getPublishStatus());
 
+        // 限制查询机构id
+        queryWrapper.eq(CourseBase::getCompanyId,companyId);
         // 分页对象
         Page<CourseBase> page = new Page<>(pageParams.getPageNo(), pageParams.getPageSize());
         // 查询数据内容获得结果

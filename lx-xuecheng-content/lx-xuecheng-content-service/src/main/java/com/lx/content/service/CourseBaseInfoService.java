@@ -13,11 +13,12 @@ public interface CourseBaseInfoService {
     /**
      * @author lx
      * @date 2023/5/17 20:10
+     * @param  companyId 机构id
      * @param pageParams 分页参数
      * @param queryCourseParams 查询条件
      * @description 课程查询接口
      */
-    public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParams);
+    public PageResult<CourseBase> queryCourseBaseList(Long companyId,PageParams pageParams, QueryCourseParamsDto queryCourseParams);
 
     /**
      * @author lx

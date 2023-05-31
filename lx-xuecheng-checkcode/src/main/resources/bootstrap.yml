@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: checkcode
+  cloud:
+    nacos:
+      server-addr: 192.168.101.65:8848
+      discovery:
+        namespace: dev-lx
+        group: lx-xuecheng-project
+      config:
+        namespace: dev-lx
+        group: lx-xuecheng-project
+        file-extension: yml
+        refresh-enabled: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yml
+            group: lx-xuecheng-common
+            refresh: true
+          - data-id: logging-${spring.profiles.active}.yml
+            group: lx-xuecheng-common
+            refresh: true
+          - data-id: redis-${spring.profiles.active}.yml
+            group: lx-xuecheng-common
+            refresh: true
+
+  profiles:
+    active: dev-lx
+
+weChat:
+  appId: wx67173c9306315c33
+  appSecret: ef0823e6c211affb56d0709a5e6da802
