@@ -3,6 +3,7 @@ package com.lx.ucenter.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lx.ucenter.model.entity.XcUserRole;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,8 @@ import com.lx.ucenter.model.entity.XcUserRole;
  *
  * @author itcast
  */
+@Repository
+
 public interface XcUserRoleMapper extends BaseMapper<XcUserRole> {
 
 }

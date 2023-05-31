@@ -2,6 +2,7 @@ package com.lx.ucenter.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lx.ucenter.model.entity.XcCompanyUser;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -11,6 +12,8 @@ import com.lx.ucenter.model.entity.XcCompanyUser;
  *
  * @author itcast
  */
+@Repository
+
 public interface XcCompanyUserMapper extends BaseMapper<XcCompanyUser> {
 
 }

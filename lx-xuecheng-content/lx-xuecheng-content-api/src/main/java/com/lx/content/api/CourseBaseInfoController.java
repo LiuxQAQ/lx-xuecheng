@@ -9,6 +9,7 @@ import com.lx.content.model.dto.EditCourseDto;
 import com.lx.content.model.dto.QueryCourseParamsDto;
 import com.lx.content.model.entity.CourseBase;
 import com.lx.content.service.CourseBaseInfoService;
+import com.lx.content.utils.SecurityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,10 @@ public class CourseBaseInfoController {
     @ApiOperation("根据课程id查询")
     public CourseBaseInfoDto getCourseBaseById(@PathVariable("courseId") Long courseId){
         // 取出当前用户身份
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        SecurityUtil.XcUser user = SecurityUtil.getUser();
+        System.out.println(user);
 
         return courseBaseInfoService.getCourseBaseInfo(courseId);
     }

@@ -15,6 +15,7 @@
         <module>lx-xuecheng-message-sdk</module>
         <module>lx-xuecheng-search</module>
         <module>lx-xuecheng-auth</module>
+        <module>lx-xuecheng-checkcode</module>
     </modules>
     <name>lx-xuecheng</name>
     <description>lx-xuecheng</description>
