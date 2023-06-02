@@ -12,7 +12,9 @@
     <artifactId>lx-xuecheng-learning</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>lx-xuecheng-api</module>
+        <module>lx-xuecheng-learning-model</module>
+        <module>lx-xuecheng-learning-api</module>
+        <module>lx-xuecheng-learning-service</module>
     </modules>
 
 

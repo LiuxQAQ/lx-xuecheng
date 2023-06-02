@@ -1,4 +1,4 @@
-package com.lx.content.config;
+package com.lx.orders.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -9,14 +9,18 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
+/**
+ * @author Administrator
+ * @version 1.0
+ **/
 @Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
-public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 
 
     //资源服务标识
-    public static final String RESOURCE_ID = "lx-xuecheng";
+    public static final String RESOURCE_ID = "xuecheng-plus";
 
     @Autowired
     TokenStore tokenStore;
@@ -36,5 +40,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .anyRequest().permitAll()
         ;
     }
+
 
 }

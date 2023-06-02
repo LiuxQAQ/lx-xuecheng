@@ -17,6 +17,7 @@
         <module>lx-xuecheng-auth</module>
         <module>lx-xuecheng-checkcode</module>
         <module>lx-xuecheng-learning</module>
+        <module>lx-xuecheng-orders</module>
     </modules>
     <name>lx-xuecheng</name>
     <description>lx-xuecheng</description>

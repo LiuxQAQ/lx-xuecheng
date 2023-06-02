@@ -1,6 +1,7 @@
 package com.lx.content.service;
 
 import com.lx.content.model.dto.CoursePreviewDto;
+import com.lx.content.model.entity.CoursePublish;
 
 import java.io.File;
 
@@ -56,5 +57,12 @@ public interface CoursePublishService {
      */
     public void uploadCourseHtml(Long courseId,File file);
 
+    /**
+     * @author lx
+     * @date 2023/5/31 22:39
+     * @param courseId 课程id
+     * @description 查询课程发布信息
+     */
+    public CoursePublish getCoursePublish(Long courseId);
 
 }
