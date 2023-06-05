@@ -1,5 +1,6 @@
 package com.lx.content.service.jobhandler;
 
+import com.alibaba.fastjson.JSON;
 import com.lx.base.execption.XueChengException;
 import com.lx.content.feignclient.SearchServiceClient;
 import com.lx.content.mapper.CoursePublishMapper;
@@ -15,6 +16,7 @@ import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -30,6 +32,8 @@ public class CoursePublishTask extends MessageProcessAbstract {
     private CoursePublishMapper coursePublishMapper;
     @Autowired
     private SearchServiceClient searchServiceClient;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @XxlJob("CoursePublishJobHandler")
     public void coursePublishJobHandler() throws Exception{
@@ -79,19 +83,16 @@ public class CoursePublishTask extends MessageProcessAbstract {
         mqMessageService.completedStageOne(id);
     }
 
-    //todo 将课程消息缓存至redis
+    // 将课程消息缓存至redis
     public void saveCourseCache(MqMessage mqMessage,Long courseId){
-        log.debug("将课程信息缓存至redis,课程id:{}",courseId);
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        }catch (InterruptedException e){
-            throw new RuntimeException(e);
+        CoursePublish coursePublish = coursePublishService.getCoursePublish(courseId);
+        if (coursePublish!=null){
+            redisTemplate.opsForValue().set("course:"+courseId, JSON.toJSONString(coursePublish));
         }
     }
 
     // 保存课程索引信息
     public void saveCourseIndex(MqMessage mqMessage,Long courseId){
-        log.debug("保存课程索引信息,课程id:{}",courseId);
 
         // 消息id
         Long id = mqMessage.getId();

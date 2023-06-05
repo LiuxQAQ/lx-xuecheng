@@ -29,5 +29,8 @@ spring:
           - data-id: feign-${spring.profiles.active}.yml
             group: lx-xuecheng-common
             refresh: true
+          - data-di: redis-${spring.profiles.active}.yml
+            group: lx-xuecheng-common
+            refresh: true
   profiles:
     active: dev-lx

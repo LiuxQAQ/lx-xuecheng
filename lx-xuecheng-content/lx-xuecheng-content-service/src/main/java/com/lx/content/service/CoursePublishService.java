@@ -65,4 +65,12 @@ public interface CoursePublishService {
      */
     public CoursePublish getCoursePublish(Long courseId);
 
+    /**
+     * @author lx
+     * @date 2023/6/2 9:49
+     * @param courseId 课程id
+     * @description 查询缓存中的课程信息
+     */
+    public CoursePublish getCoursePublishCache(Long courseId);
+
 }
